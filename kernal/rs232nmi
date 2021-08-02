@@ -11,9 +11,9 @@ NNMI10	LDA #$7F        ;DISABLE ALL NMI'S
 	LDY D2ICR       ;CHECK IF REAL NMI...
 	BMI NNMI20      ;NO...RS232/OTHER
 ;
-NNMI18	JSR A0INT       ;CHECK IF $A0 IN...NO .Y
-	BNE NNMI19      ;...NO
-	JMP ($8002)     ;...YES
+NNMI18	; removed cartridge check
+	
+	
 ;
 ; CHECK FOR STOP KEY DOWN
 ;
