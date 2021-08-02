@@ -2,3 +2,6 @@
 *.lst
 *.sym
 *~
+roms
+rom.*
+

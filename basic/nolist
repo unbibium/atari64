@@ -1,0 +1,3 @@
+.OPT NOSYM
+.OPT NOLIST
+  INCLUDE "basic"
