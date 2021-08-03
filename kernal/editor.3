@@ -29,10 +29,10 @@ MODE1
 	.BYTE $FF        ;END OF TABLE NULL
 
 MODE2	;SHIFT
-	.BYTE $CC,$CA,":",F1KEY,F3KEY,$CB,"+*"
-	.BYTE $CF,$FF,$D0,$D5,$8D,$C9,"-="
+	.BYTE $CC,$CA,":",F1KEY,F3KEY,$CB,"\^"
+	.BYTE $CF,$FF,$D0,$D5,$8D,$C9,"_|"
 	.BYTE $D6,HELPKEY,$C3,F3KEY,F4KEY,$C2,$D8,$DA
-	.BYTE $34,$FF,$33,$36,$03,$35,$32,$31
+	.BYTE $24,$FF,$23,$26,$03,$25,$22,$21
 	.BYTE "[",$A0,"]",$CE,$FF,$CD,"?",LOGOKEY
 	.BYTE $D2,0,$C5,$D9,TABKEY,$D4,$D7,$D1
 	.BYTE "(",0,")'",DELKEY,"@",$93,$94

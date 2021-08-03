@@ -219,7 +219,9 @@ GTIAREG  = $D000
 PRIOR    = $D01B
 CONSOL   = $D01F
 POKEYREG = $D200
-KEYKEY   = $D209
+KBCODE   = $D209
+IRQST    = $D20E   ;b7=break
+SKSTAT   = $D20F  ; b3=key b4=shift
 ANTICREG = $D400
 DMACTL   = $D400
 CHACTL   = $D401
