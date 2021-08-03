@@ -43,9 +43,13 @@ JSCROG	JMP SCRORG      ;SCREEN ORG
 JPLOT	JMP PLOT        ;READ/SET X,Y COORD
 JIOBAS	JMP IOBASE      ;RETURN I/O BASE
 
+TEMPRTI	RTI      ; null IRQ handler until we find a use
 
 	ORG $FFFA
-	.WORD NMI        ;PROGRAM DEFINEABLE
+	; on c64, vertical blank was an IRQ.
+	; on atari, it's an NMI, 
+	; so labels NMI and PULS are switched.
+	.WORD PULS       ;PROGRAM DEFINEABLE
 	.WORD START      ;INITIALIZATION CODE
-	.WORD PULS       ;INTERRUPT HANDLER
+	.WORD TEMPRTI    ;INTERRUPT HANDLER
 

@@ -219,6 +219,7 @@ GTIAREG  = $D000
 PRIOR    = $D01B
 CONSOL   = $D01F
 POKEYREG = $D200
+KEYKEY   = $D209
 ANTICREG = $D400
 DMACTL   = $D400
 CHACTL   = $D401
@@ -227,6 +228,8 @@ DLISTH   = $D403
 CHBASE   = $D409
 VCOUNT   = $D40B  ; Returns half the value of the vertical line counter
 NMIEN    = $D40E  ; b7 = DLIs, B6 = vertical blank, b5=reset
+NMIST	= $D40F  
+NMIRES	= $D40F  
 
 ; C64 I/O DEVICES deprecated
 ;
