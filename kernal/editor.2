@@ -241,6 +241,7 @@ SCNKEY	LDA #$00
 	CPX #$FF        ;NO KEYS DOWN?
 	BEQ SCNOUT      ;BRANCH IF NONE
 	LDY #0
+	TYA
 	; there is a key.  do shift/ctrl keys
 	BIT KEYKEY
 	BPL NOCTRL
@@ -309,9 +310,26 @@ PUTQUE
 	INX
 	STX NDX         ;UPDATE KEY QUEUE COUNT
 SCNRTS	
+	; debugging status
+	LDA KEYKEY
+	LSR
+	LSR
+	LSR
+	LSR
+	TAX
+	LDA HEXES,X
+	STA $0400
+	LDA KEYKEY
+	AND #$0F
+	TAX
+	LDA HEXES,X
+	STA $0401
 	
+	LDA SHFLAG
+	STA $0403
 	RTS
 
+HEXES   .BYTE "0123456789",1,2,3,4,5,6
 ;
 ; SHIFT LOGIC
 ;
