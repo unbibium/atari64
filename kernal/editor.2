@@ -239,8 +239,11 @@ SCNKEY	LDA #$00
 	STY SFDX        ;NULL KEY FOUND
 	LDA SKSTAT      ;CHECK FOR A KEY DOWN
 	AND #$04        ;NO KEYS DOWN?
-	BNE SCNOUT      ;BRANCH IF NONE
-	TAY
+	LDX #$FF        ; reproduce previous logic that
+	EOR #$04        ; follows BEQ chain to CKIT2
+	BEQ SCNOUT      ;BRANCH IF NONE
+	LDA #0
+	TAY  
 	; there is a key.  do shift/ctrl keys
 	BIT KBCODE
 	BPL NOCTRL
