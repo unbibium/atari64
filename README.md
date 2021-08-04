@@ -46,13 +46,31 @@ The Atari logo key will type the pi character.
 Shift-Atari logo will switch between uppercase-graphics and
 lowercase-uppercase character set.
 
-Still missing:
-* RESET button
-* A way to type the Commodore-logo graphics characters
-* Any I/O whatsoever: tape, disk, printer, RS232... 
+Known issues:
+* RESET button does nothing yet, should do same as RUN-STOP/RESTORE
+* need to find a way to type the Commodore-logo graphics characters.
+  The Atari logo key doesn't work as a qualifier, but might work as
+  a dead key.  or i could use START/SELECT/OPTION.
+* no way yet to save or load BASIC programs
+* there's no I/O at all actually
 
 WHY
 ===
 
-lol
+Recently the 8-Bit Guy did a video about the Apple 1 computer, and
+how you can simulate an Apple 1 with a Commodore 64 program that just
+reproduces the terminal I/O and runs the programs natively.  It got
+me thinking, why couldn't I do the same thing with two other machines?
+The Atari 800XL and Commodore 64 have such similar memory maps and
+ROM switching capabilities that it seemed my best bet was to try to
+compile the CBM KERNAL on the Atari 800XL and see how much I could
+get to work.
+
+i wonder if I've hit the wall or if some mad genius will figure out
+how to wire a real Datasette in there and run actual PET programs.
+
+ACKNOWLEDGEMENTS
+================
+
+* CBM source code: https://github.com/mist64/cbmsrc
 
