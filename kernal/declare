@@ -107,7 +107,7 @@ TBLX	DS.B 1
 DATA	DS.B 1
 INSRT	DS.B 1           ;INSERT MODE FLAG
 LDTB1	DS.B 26          ;LINE FLAGS+ENDSPACE
-USER	DS.B 2           ;SCREEN EDITOR COLOR IP
+USER	DS.B 2           ;no longer needed without color
 KEYTAB	DS.B 2           ;KEYSCAN TABLE INDIRECT
 ;RS-232 Z-PAGE
 RIBUF	DS.B 2           ;RS-232 INPUT BUFFER POINTER
@@ -208,6 +208,9 @@ ISAVE	DS.B 2           ;SAVESP
 
 	ORG $0300+60
 TBUFFR	DS.B 192         ;CASSETTE DATA BUFFER
+; four extra bytes to play with
+CHSHADOW	DS.B 1	; Character set shadow register
+ATARITHING	DS.B 1	; next Atari thing I need
 
 	ORG $400
 VICSCN	DS.B 1024
@@ -221,6 +224,7 @@ CONSOL   = $D01F
 POKEYREG = $D200
 KBCODE   = $D209
 IRQST    = $D20E   ;b7=break
+IRQEN    = IRQST
 SKSTAT   = $D20F  ; b3=key b4=shift
 ANTICREG = $D400
 DMACTL   = $D400

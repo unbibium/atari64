@@ -6,7 +6,11 @@ SIMIRQ	PHP
 	PLA             ;FIX THE BREAK FLAG
 	AND #$EF
 	PHA
-; PULS - CHECKS FOR REAL IRQ'S OR BREAKS
+;
+; PULS - CHECKS FOR REAL IRQ'S 
+;      In the C64, VBI is an IRQ.  but on the Atari,
+;      it's an NMI.  so we need to move BRK detection
+;      to a different routine
 ;
 PULS	PHA
 	TXA
@@ -19,10 +23,12 @@ PULS	PHA
 	BEQ PULS1       ;...NO
 	JMP (CBINV)     ;...YES...BREAK INSTR
 PULS1	BIT NMIST
-        BVC PULS2
+        BVC PULS2       ; THIS DIDN'T WORK
 	STA NMIRES      ; reset vector
 	JMP (CINV)      ;...VBI
-PULS2	RTI ;  TODO: treat RESET button like RESTORE
+PULS2	
+	;  TODO: treat RESET button like RESTORE
+	JMP KPREND ; pull everything back
 
 
 ; PCINT - ADD UNIVERSAL TO CINIT
@@ -45,4 +51,29 @@ PIOKEY	LDA #$81        ;ENABLE T1 IRQ'S
 	ORA #%00010001  ;ENABLE TIMER1
 	STA D1CRA
 	JMP CLKHI       ;RELEASE THE CLOCK LINE***901227-03***
+;
+; ACTUAL IRQ for break key, 
+;
+TEMPRTI	BIT IRQST 
+	PHA
+	IFCONST DEBUG
+	LDA IRQST
+	STA $0410 ; debugging info
+	INC $0411
+	ENDIF
+	;  check which thingy
+	LDA IRQST
+	BMI RTINOW ; not BREAK
+	LDA #$00
+	STA IRQEN ; mark IRQ as received
+	LDA #$80
+	STA IRQEN ; re-enable BREAK IRQ
+	LDA #$7F  ;
+	STA STKEY
+RTINOW	PLA; TODO: handle timer1/2/4 and other stuff
+	; this might be how the tape and rs232 stuff can
+	; be re-awakened
+	RTI      ; but do nothing else now
+
+
 ; .end

@@ -22,7 +22,7 @@ MODE1
 	.BYTE "O",$FF,"PU",$0D,"I-="
 	.BYTE "V",HELPKEY,"C",F3KEY,F4KEY,"BXZ"
 	.BYTE "4",$FF,"36",$03,"521"
-	.BYTE ", .N",$FF,"M/",LOGOKEY
+	.BYTE ", .N",$FF,"M/",$7E
 	.BYTE "R",$FF,"EY",TABKEY,"TWQ"
 	.BYTE "9",$FF,"07",DELKEY,"8<>"
 	.BYTE "FHD",$FF,CAPSKEY,"GSA"
@@ -64,9 +64,8 @@ UPPER
 	;LDA VICREG+24   ;MAKE SURE VIC POINT TO UPPER/PET SET
 	;AND #$FF-$02
 	LDA #$D8     ; #>CHARGEN
-ULSET	STA CHBASE
-	; TODO: create shadow register somewhere
-	; so that SHIFT-C= type toggle can work
+ULSET	STA CHSHADOW  ; shadow register in RAM allows toggle to work
+	STA CHBASE    ; ANTIC register directly is more responsive
 OUTHRE	JMP LOOP2
 
 LOCK

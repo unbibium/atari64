@@ -43,8 +43,6 @@ JSCROG	JMP SCRORG      ;SCREEN ORG
 JPLOT	JMP PLOT        ;READ/SET X,Y COORD
 JIOBAS	JMP IOBASE      ;RETURN I/O BASE
 
-TEMPRTI	RTI      ; null IRQ handler until we find a use
-
 	ORG $FFFA
 	; on c64, vertical blank was an IRQ.
 	; on atari, it's an NMI, 

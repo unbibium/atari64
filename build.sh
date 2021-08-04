@@ -1,6 +1,6 @@
 #!/bin/sh
 
-dasm roms.a65 -oroms -f3 -lroms.lst -sroms.sym
+dasm roms.a65 -oroms -f3 -lroms.lst -sroms.sym $*
 result=$?
 if [[ result -ne 0 ]]
 then

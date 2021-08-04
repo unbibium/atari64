@@ -153,9 +153,12 @@ PX4	LDA TGTIA-1,X
 	LDA #>ROMDLIST
 	STA DLISTH
 	LDA #$D8  ; uppercase?
+	STA CHSHADOW
 	STA CHBASE
 	LDA #$40 ; VBI only
 	STA NMIEN ; enable NMI
+	LDA #$80 ; BREAK only
+	STA IRQEN ; enable IRQ
 	LDA #$00 ; no funny GTIA mode
 	STA PRIOR 
 	RTS
