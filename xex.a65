@@ -1,0 +1,62 @@
+  processor 6502
+;
+;  Generate ROM files for direct use
+;  Build with dasm -f2 and then run toxex.py
+;
+
+; COPYCHUNK SRC,DST,ENDDST
+	MAC COPYCHUNK
+	; copy RAM to ROM
+	LDY #$00
+	STY SRCVEC
+	STY DSTVEC
+	LDA #>{1}
+	STA SRCVEC+1
+	LDA #>{2}
+	STA DSTVEC+1
+.LOOP
+	LDA (SRCVEC),Y
+	STA (DSTVEC),Y
+	INY
+	BNE .LOOP
+	INC SRCVEC+1
+	INC DSTVEC+1
+	LDA DSTVEC+1
+	CMP #>{3}
+	BNE .LOOP
+	ENDM
+
+PORTB	= $D301 ; memory control
+NMIEN	= $D40E ; NMI control
+; zero-page vectors for copying
+SRCVEC  = $80
+DSTVEC  = $82
+
+	org $4000
+BASICSRC
+	incbin "rom.a000"
+	org $6000
+KERNALSRC
+	incbin "rom.d800"
+
+BASICDST equ $A000
+KERNALDST equ $D800
+
+	ORG $3E00  ; random place in middle of RAM
+INIT
+	; disable all NMIs
+	LDA #0
+	STA NMIEN
+	SEI
+	LDA PORTB
+	AND #$7C   ; preserve 130XE memory bank
+	ORA #$82   ; disable OS and BASIC ROM and also self-test
+	STA PORTB
+	COPYCHUNK BASICSRC,BASICDST,$C000
+	COPYCHUNK KERNALSRC,KERNALDST,$0000
+	JMP ($FFFC)
+
+	org $02e0
+	.word INIT
+
+

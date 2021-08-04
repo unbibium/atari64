@@ -1,4 +1,8 @@
   processor 6502
+;
+;  Generate ROM files for direct use
+;  Build with dasm -f3
+;
   seg.u variables
   INCLUDE "basic/disclaimer"
   INCLUDE "basic/declare"
