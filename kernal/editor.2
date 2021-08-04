@@ -45,15 +45,13 @@ SCRL3	STA LDTB1,X
 ;
 	INC TBLX
 	INC LINTMP
-	LDA #$7F        ;CHECK FOR CONTROL KEY
-	STA COLM        ;DROP LINE 2 ON PORT B
-	LDA ROWS
-	CMP #$FB        ;SLOW SCROLL KEY?(CONTROL)
-	PHP             ;SAVE STATUS. RESTORE PORT B
-	LDA #$7F        ;FOR STOP KEY CHECK
-	STA COLM
-	PLP
-	BNE MLP42
+	; check for slow scroll
+	; can't decide which start/select/option
+        ; so i'll just check all of them
+	LDA 53279
+	AND #7
+	CMP #7
+	BEQ MLP42 ; branch if no buttons pressed
 ;
 	LDY #0
 MLP4	NOP             ;DELAY
@@ -359,12 +357,14 @@ SHFLOG
 	LDA MODE
 	BMI SHFOUT      ;DONT SHIFT IF ITS MINUS
 
-SWITCH	;TODO: allocate a byte somewhere to change case
-	LDA CHSHADOW
+SWITCH	LDA CHSHADOW
 	EOR #$04
 	STA CHSHADOW
 	STA CHBASE
-	JMP SHFOUT
+	;JMP SHFOUT ; if we just do this, it types a pi
+	; but if we clear SFDX we can't debounce anymore
+	LDA #$4   ;make sure the SHIFT keymap is used
+	BNE NCTRL ;and continue as normal
 
 ;
 KEYLG2
