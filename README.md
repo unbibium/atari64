@@ -1,7 +1,8 @@
-OH GOD WHAT ARE YOU DOING
+Atari 64
 =========================
 
-I'm compiling the Commodore 64 kernal to run on the Atari 800XL.
+This is the Commodre 64 KERNAL, modified to run on the Atari 8-bit
+line of computers. 
 They're practically the same machine; why didn't someone try
 this 30 years ago?
 
@@ -46,6 +47,10 @@ The Atari logo key will type the pi character.
 Shift-Atari logo will switch between uppercase-graphics and
 lowercase-uppercase character set.
 
+If a lot of text is scrolling by, you can hold the OPTION key
+to slow down the scrolling, like you would hold down CTRL on
+a real C64.
+
 Known issues:
 * if the C64 OS is in RAM, RESET reboots the original Atari OS.
   Supposedly the old Translator disk got around this somehow.
@@ -54,6 +59,7 @@ Known issues:
   a dead key.  or i could use START/SELECT/OPTION.
 * no way yet to save or load BASIC programs
 * there's no I/O at all actually
+* PETSCII color will never work.
 
 WHY
 ===
@@ -69,6 +75,62 @@ get to work.
 
 i wonder if I've hit the wall or if some mad genius will figure out
 how to wire a real Datasette in there and run actual PET programs.
+
+HOW
+===
+
+I used mist64's `cbmsrc` project as a starting point.  The first
+thing I had to do was reformat the C64 KERNAL and BASIC's source
+code so that it would compile in DASM.  I wrote a python script
+for that, but still had to manually add segment definitions and
+such, so that it would compile neatly.
+
+Next, I had to make sure I could actually run these ROMs at all
+on an Atari emulator.  The 8K BASIC ROM was straightforward enough,
+and the original Atari 800 used 10K of ROM.  I used the extra 2K
+for the chargen ROM, which only needs half the space because it
+doesn't include the reverse characters.  I worked out how to
+configure atari800 to run it -- if I got a black screen, I'd
+press F8 and look around in the monitor to make sure everything
+was there.
+
+Next I rewrote the code that set up the screen and I/O.  I'd
+add declarations to `kernal/declare` as I went.  I hard-coded
+an ANTIC display list in ROM to point to where the C64 usually
+draws the screen at $0400.  I'd rewrite the screen initialization
+code to set up ANTIC and GTIA to point to that display list.
+Once I got that working, I found it was already displaying the
+C64 BASIC V2 splash screen.  The cursor wasn't blinking, and
+of course the keyboard didn't work, but I could feed PETSCII
+characters into the keyboard buffer through the monitor, and
+I tested a few BASIC commands that way.
+
+Getting the cursor to blink was my next task.  I looked at all
+the Atari documentation I could find to figure out how the
+vertical blank interrupt worked.  I was setting the right
+flags, but nothing worked, until I realized that the vertical
+blank is an NMI in the Atari.  On the Commodore it's an IRQ.
+So I switched the addresses at $FFFA and $FFFE, and that got
+me much closer.
+
+I rewrote the keyboard scan routine to handle the Atari
+keyboard, and removed most of the color code from the screen
+editor.  
+
+I also had to modify BASIC's RND function to draw from the POKEY
+instead of the CIA chips.  this confused me because when I ported
+the RND function to DCPU-16, it worked exactly the same as it did
+on the C64 even though I had no CIA chips to draw from.
+
+Currently, there's no I/O outside of the screen and keyboard
+whatsoever.  It'll take more expertise than I have to figure out
+any possible way of saving and loading programs.  Even describing
+the obstacles is a bit out of my league at this point.
+
+I might tear out all the rs232 code to make room for other people
+to attempt stuff, even though the 800XL has a larger ROM space to
+work in already.  I'll leave the tape code in just because I have
+a hunch that isn't a total lost cause yet, but it's only a hunch.
 
 ACKNOWLEDGEMENTS
 ================
