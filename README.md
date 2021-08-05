@@ -47,7 +47,6 @@ Shift-Atari logo will switch between uppercase-graphics and
 lowercase-uppercase character set.
 
 Known issues:
-* RESET button does nothing yet, should do same as RUN-STOP/RESTORE
 * need to find a way to type the Commodore-logo graphics characters.
   The Atari logo key doesn't work as a qualifier, but might work as
   a dead key.  or i could use START/SELECT/OPTION.

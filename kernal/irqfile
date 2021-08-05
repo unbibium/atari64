@@ -25,9 +25,11 @@ PULS	PHA
 PULS1	BIT NMIST
         BVC PULS2       ; THIS DIDN'T WORK
 	STA NMIRES      ; reset vector
-	JMP (CINV)      ;...VBI
-PULS2	
-	;  TODO: treat RESET button like RESTORE
+	JMP (CINV)      ;...VBI -- scan keys and stuff
+PULS2   BMI DO_DLI	; branch if this is a DLI
+	; by process of elimination this is RESET
+	JMP TIMB   ; warmstart BASIC
+DO_DLI  ; TODO: create vector for this and store KPREND by default
 	JMP KPREND ; pull everything back
 
 
