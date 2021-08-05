@@ -222,10 +222,14 @@ GTIAREG  = $D000
 PRIOR    = $D01B
 CONSOL   = $D01F
 POKEYREG = $D200
+AUDCTL   = $D208
 KBCODE   = $D209
+RANDOM   = $D20A
 IRQST    = $D20E   ;b7=break
 IRQEN    = IRQST
 SKSTAT   = $D20F  ; b3=key b4=shift
+SKCTLS   = SKSTAT ; serial port 4 key control
+SKCTL    = SKCTLS
 ANTICREG = $D400
 DMACTL   = $D400
 CHACTL   = $D401

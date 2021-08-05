@@ -97,7 +97,6 @@ CONTRL
 	.BYTE $12,$FF,$92,"'",DELKEY,"@",$93,$94
 	.BYTE $06,$08,$04,$FF,CAPSKEY,$07,$13,$01
 	.BYTE $FF        ;END OF TABLE NULL
-TVIC ;deprecated
 TGTIA
 	.BYTE 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 ;SPRITES (0-16)
         .BYTE 0        
@@ -105,10 +104,8 @@ TGTIA
         .BYTE $00, $00, $00, $00 
         ; Default Playfield Colors
         .BYTE $28, $CA, $94, $46, $9A
-        ; no goofy GTIA mode
+        ; no goofy GTIA mode in PRIOR
         .BYTE $00
-	;.BYTE $9B,55,0,0,0,$08,0,$14,$0F,0,0,0,0,0,0 ;DATA (17-31) RC= 311
-	;.BYTE 14,6,1,2,3,4,0,1,2,3,4,5,6,7 ;32-46
 TANTIC
         .BYTE $22  ; DMACTL -- to be checked
         .BYTE $02  ; CHACTL ... 755?
