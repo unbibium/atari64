@@ -248,7 +248,16 @@ SCNKEY	LDA #$00
 	ORA #$04
 NOCTRL	BVC NOSHIFT
 	ORA #$01
-NOSHIFT STA SHFLAG
+NOSHIFT	TAY
+	; any of the rightmost keys acts as C=
+	LDA 53279 ; OPT/SELECT/SHIFT
+	AND #$07
+	CMP #$07
+	BEQ NOCBMKEY
+	INY
+	INY
+NOCBMKEY	TYA
+	STA SHFLAG
 
 	LDA #<MODE1
 	STA KEYTAB
@@ -363,7 +372,7 @@ SWITCH	LDA CHSHADOW
 	STA CHBASE
 	;JMP SHFOUT ; if we just do this, it types a pi
 	; but if we clear SFDX we can't debounce anymore
-	LDA #$4   ;make sure the SHIFT keymap is used
+	LDA #$2   ;make sure the SHIFT keymap is used
 	BNE NCTRL ;and continue as normal
 
 ;

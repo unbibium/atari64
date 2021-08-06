@@ -47,6 +47,9 @@ The Atari logo key will type the pi character.
 Shift-Atari logo will switch between uppercase-graphics and
 lowercase-uppercase character set.
 
+Hold the OPTION, SELECT, or START key to type the graphics
+characters you'd ordinarily type with the Commodore logo key.
+
 If a lot of text is scrolling by, you can hold the OPTION key
 to slow down the scrolling, like you would hold down CTRL on
 a real C64.
@@ -54,9 +57,6 @@ a real C64.
 Known issues:
 * if the C64 OS is in RAM, RESET reboots the original Atari OS.
   Supposedly the old Translator disk got around this somehow.
-* need to find a way to type the Commodore-logo graphics characters.
-  The Atari logo key doesn't work as a qualifier, but might work as
-  a dead key.  or i could use START/SELECT/OPTION.
 * no way yet to save or load BASIC programs
 * there's no I/O at all actually
 * PETSCII color will never work.

@@ -10,11 +10,13 @@ F1KEY = $FF
 F2KEY = $FF
 F3KEY = $FF
 F4KEY = $FF
-; TODO: find out what to do to logo key
+; keys that don't really map well to C64
 HELPKEY = $FF
-LOGOKEY = $FF
+LOGOKEY = $7E ; pi
 TABKEY = $5F ; left arrow
 CAPSKEY = $FF
+ESCKEY = $5F ; left arrow
+; PETSCII constants
 DELKEY = $14
 
 MODE1
@@ -22,7 +24,7 @@ MODE1
 	.BYTE "O",$FF,"PU",$0D,"I-="
 	.BYTE "V",HELPKEY,"C",F3KEY,F4KEY,"BXZ"
 	.BYTE "4",$FF,"36",$03,"521"
-	.BYTE ", .N",$FF,"M/",$7E
+	.BYTE ", .N",$FF,"M/",LOGOKEY
 	.BYTE "R",$FF,"EY",TABKEY,"TWQ"
 	.BYTE "9",$FF,"07",DELKEY,"8<>"
 	.BYTE "FHD",$FF,CAPSKEY,"GSA"
@@ -30,24 +32,26 @@ MODE1
 
 MODE2	;SHIFT
 	.BYTE $CC,$CA,":",F1KEY,F3KEY,$CB,"\^"
-	.BYTE $CF,$FF,$D0,$D5,$8D,$C9,"_|"
+	.BYTE $CF,$FF,$D0,$D5,$8D,$C9,$A4,$7D
 	.BYTE $D6,HELPKEY,$C3,F3KEY,F4KEY,$C2,$D8,$DA
 	.BYTE $24,$FF,$23,$26,$03,$25,$22,$21
-	.BYTE "[",$A0,"]",$CE,$FF,$CD,"?",LOGOKEY
+	.BYTE "[",$A0,"]",$CE,$FF,$CD,"?",$FF
 	.BYTE $D2,0,$C5,$D9,TABKEY,$D4,$D7,$D1
 	.BYTE "(",0,")'",DELKEY,"@",$93,$94
 	.BYTE $C6,$C8,$C4,$FF,CAPSKEY,$C7,$D3,$C1
 	.BYTE $FF        ;END OF TABLE NULL
 ;
 MODE3	;LEFT WINDOW GRAHPICS
-	.BYTE "LJ;",F1KEY,F3KEY,"K+*"
-	.BYTE "O",0,"PU",$0D,"I-="
-	.BYTE "V",HELPKEY,"C",F3KEY,F4KEY,"BXZ"
-	.BYTE "4",0,"36",$03,"521"
-	.BYTE ", .N",0,"M/",LOGOKEY
-	.BYTE "R",0,"EY",TABKEY,"TWQ"
-	.BYTE "9",0,"07",DELKEY,"8<>"
-	.BYTE "FHD",0,CAPSKEY,"GSA"
+;>C:1e00  76 75 3b 20  20 20 20 20  20 20 20 20  20 20 20 20   vu;             
+;>C:1e10  20 20 20 20  20 20 79 20  6f 78 20 62  5c a0 20 20         y ox b\�  
+	.BYTE $B6,$B5,$A6,F1KEY,F3KEY,$A1,$7B,$C0
+	.BYTE $B9,$FF,$AF,$B8,$0D,$A2,$A4,$7D
+	.BYTE $BE,HELPKEY,$BC,F3KEY,F4KEY,$BF,$BD,$AD
+	.BYTE $97,$FF,$96,$99,$03,$98,$95,$81
+	.BYTE $A9,$A0,$DF,$AA,$FF,$A7,$B9,LOGOKEY
+	.BYTE $B2,$FF,$B1,$B7,TABKEY,$A3,$B3,$AB
+	.BYTE "9",0,"0",$9A,DELKEY,$9B,$A8,$7C
+	.BYTE $BB,$B4,$AC,$FF,CAPSKEY,$A5,$AE,$B0
 	.BYTE $FF        ;END OF TABLE NULL
 
 LOWER
@@ -91,10 +95,10 @@ CONTRL
 	.BYTE $0C,$0A,$FF,$FF,$FF,$0B,$9D,$1D
 	.BYTE $0F,$FF,$10,$15,$8D,$09,$91,$11
 	.BYTE $16,HELPKEY,$03,F3KEY,F4KEY,$02,$18,$1A
-	.BYTE $34,$FF,$33,$36,$03,$35,$05,$31
+	.BYTE $9F,$FF,$1C,$1E,$03,$9C,$05,$90
 	.BYTE $1B,$A0,$1D,$0E,$FF,$0D,$1F,LOGOKEY
 	.BYTE $12,$FF,$05,$19,TABKEY,$14,$17,$11
-	.BYTE $12,$FF,$92,"'",DELKEY,"@",$93,$94
+	.BYTE $12,$FF,$92,"'",DELKEY,$9E,$93,$94
 	.BYTE $06,$08,$04,$FF,CAPSKEY,$07,$13,$01
 	.BYTE $FF        ;END OF TABLE NULL
 TGTIA
