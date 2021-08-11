@@ -1,7 +1,10 @@
 *.prg
 *.lst
 *.sym
+*.a8s
 *~
 roms
 rom.*
+atari64.xex
+atari64.o
 
