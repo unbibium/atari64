@@ -33,6 +33,8 @@ swapped them out with these:
 * `atari800 -config atari64.cfg`
 You can extrapolate this to decide how to run it on real hardware.
 
+The `atari64.xex` should run from any DOS or boot loader.
+
 WHAT IT DOES
 ============
 
@@ -117,10 +119,10 @@ I rewrote the keyboard scan routine to handle the Atari
 keyboard, and removed most of the color code from the screen
 editor.  
 
-I also had to modify BASIC's RND function to draw from the POKEY
-instead of the CIA chips.  this confused me because when I ported
-the RND function to DCPU-16, it worked exactly the same as it did
-on the C64 even though I had no CIA chips to draw from.
+I also had to modify BASIC's `RND(0)` function to draw from the POKEY
+instead of the CIA chips.  The lack of a CIA/POKEY equivalent on the
+DCPU-16 is probably why I had to use `RND(1)` in my demo video
+instead.
 
 Currently, there's no I/O outside of the screen and keyboard
 whatsoever.  It'll take more expertise than I have to figure out
