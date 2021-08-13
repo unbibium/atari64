@@ -24,21 +24,22 @@ if len(sys.argv) < 3:
     print("Usage:",sys.argv[0],"infile outfile")
     sys.exit(1)
 
+print("converting %r to %r" % (sys.argv[1], sys.argv[2]))
+
 with open(sys.argv[1],'rb') as fi, open(sys.argv[2],'wb') as fo:
     fo.write(b'\xff\xff')  # header magic number
     while True:
         startWord = fi.read(2)
         if not startWord:
-            print( "not startWord:", repr(startWord))
             break
         startAddr = to_int(startWord)
         chunkSize = to_int(fi.read(2))
         endAddr = startAddr+chunkSize-1
-        print("%4x-%4x" % (startAddr,endAddr))
+        print("%04X-%04X (%d bytes)" % (startAddr,endAddr,chunkSize))
         fo.write(startWord)
         fo.write(to_bytes(endAddr))
         fo.write(fi.read(chunkSize))
-    print("done")
+    print("done writing XEX file")
 
 
 
