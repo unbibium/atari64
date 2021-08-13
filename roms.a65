@@ -49,13 +49,9 @@
   INCLUDE "kernal/patch"
 	ORG $E500         ;START OF VIC-40 KERNAL
   INCLUDE "kernal/editor.1"
-;.LIB CONKAT (JAPAN CONVERSION TABLES)
   INCLUDE "kernal/editor.2"
   INCLUDE "kernal/editor.3"
   INCLUDE "kernal/serial4.0"
-  INCLUDE "kernal/rs232trans"
-  INCLUDE "kernal/rs232rcvr"
-  INCLUDE "kernal/rs232inout"
   INCLUDE "kernal/messages"
   INCLUDE "kernal/channelio"
   INCLUDE "kernal/openchannel"
