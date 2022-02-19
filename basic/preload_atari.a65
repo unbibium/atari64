@@ -1,0 +1,84 @@
+;
+; In lieu of I/O, we needed a way to load stuff into CBM BASIC.
+; Using Atari's I/O while C64 KERNAL is running would require either
+; caching all the memory it would clobber, OR rewriting all the Atari
+; I/O, including DOS, to work within the KERNAL's memory map.
+; 
+; So, we could pre-load the program.  The correct way to do this
+; is to show a directory before booting the C64 kernal, and let
+; the user pick a program to load.  I'm in a hurry to show this off
+; this weekend at Southwest Maker Fest, so I'm going to have the
+; user load it into memory separately before running Atari64.
+;
+; We can't pre-load directly into BASIC memory because Atari DOS 
+; usually resides in the $0801 area.  There are menu loaders
+; and XEX booters that don't use that memory, but they also don't
+; provide DOS functions so you can't load two OBJ files that way.
+;
+; A short preamble is used to reduce the odds that some random
+; data might be mistaken for a program.
+;
+
+PRG_SOURCE = $8900
+PRG_PREAMBLE = PRG_SOURCE-3
+; in a hurry
+PRG_SRC_VEC = 251
+PRG_DST_VEC = 253
+
+COPY_PRELOAD_PROGRAM:
+        ; first check for program.
+	LDA PRG_PREAMBLE
+	CMP #'C
+	BNE PRELOAD_RTS
+	LDA PRG_PREAMBLE+1
+	CMP #'B
+	BNE PRELOAD_RTS
+	LDA PRG_PREAMBLE+2
+	CMP #'M
+	BNE PRELOAD_RTS
+	LDX PRG_SOURCE
+	; the first byte of actual BASIC is zero
+	BNE PRELOAD_RTS
+	STX PRG_PREAMBLE ; prevent this from running again
+	; print LOADING message
+	LDA #$FF
+	JSR $FF90
+	JSR LODING
+	; copy until three zeroes
+	; init loop
+	LDA #>PRG_SOURCE
+	STA PRG_SRC_VEC+1
+	LDA TXTTAB+1
+	STA PRG_DST_VEC+1
+	LDA #0
+	STA PRG_SRC_VEC
+	STA PRG_DST_VEC
+	TAX
+	TAY
+	; copy one byte
+PRG_LP1:
+	LDA (PRG_SRC_VEC),Y
+	BEQ PRG_Z2
+	LDX #$FF
+PRG_Z2:
+	INX
+	STA (PRG_DST_VEC),Y
+	; increment
+	INY
+	BNE PRG_FIND_EOF
+	INC PRG_SRC_VEC+1
+	INC PRG_DST_VEC+1
+PRG_FIND_EOF:
+	CPX #3
+	BNE PRG_LP1 ; until third 00 in a row
+	; copy done
+	STY VARTAB
+	LDA PRG_DST_VEC+1
+	STA VARTAB+1
+	; reindex all the lines
+	JSR STXTPT
+	JSR LNKPRG
+	;JSR bRESTORE
+PRELOAD_RTS: 
+	RTS
+

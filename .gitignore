@@ -1,7 +1,9 @@
-*.prg
 *.lst
 *.sym
 *.a8s
+*.lbl
+*.xex
+*.obj
 *~
 roms
 rom.*

@@ -125,14 +125,31 @@ DCPU-16 is probably why I had to use `RND(1)` in my demo video
 instead.
 
 Currently, there's no I/O outside of the screen and keyboard
-whatsoever.  It'll take more expertise than I have to figure out
-any possible way of saving and loading programs.  Even describing
-the obstacles is a bit out of my league at this point.
+whatsoever.  I've torn out all the rs232 code to make room for 
+other people to attempt stuff, even though the 800XL has a larger 
+ROM space to work in already.  I'll leave the tape code in just 
+because I have a hunch that isn't a total lost cause yet, but it's 
+only a hunch.
 
-I might tear out all the rs232 code to make room for other people
-to attempt stuff, even though the 800XL has a larger ROM space to
-work in already.  I'll leave the tape code in just because I have
-a hunch that isn't a total lost cause yet, but it's only a hunch.
+LOADING PROGRAMS
+================
+There is one way to load programs, though it's a bit hacky.  Inspired
+by a similar project called "c800", I found a way to pre-load programs
+such that Atari 64 will boot into them.
+
+    ./prg2obj file.prg file.xex
+
+This will create a program in XEX format that just loads the program into
+a segment of memory that isn't going to be used for anything else.  So,
+if you load the resulting XEX file before you load Atari64, it will copy
+that program to the proper place in the C64 memory map so that you can
+RUN it right away.  If you see the word LOADING, it has detected and
+loaded this program.
+
+I made this in kind of a hurry so that I could show this off in public,
+so it's limited, might not work on larger programs, and the python
+script has to run in the same directory as roms.sym.  Improvements
+will appear in future versions.
 
 ACKNOWLEDGEMENTS
 ================

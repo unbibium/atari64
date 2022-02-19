@@ -1,6 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
 dasm roms.a65 -oroms -f3 -lroms.lst -sroms.sym $*
+# convert dasm symbols to atari800 labels
+awk '{print $2, $1}' <roms.sym >roms.lbl
+
 result=$?
 if [[ result -ne 0 ]]
 then
@@ -18,3 +21,9 @@ dd bs=1024 skip=14 <roms >rom.d800
 dasm xex.a65 -oatari64.o -f2
 ./toxex.py atari64.o atari64.xex
 
+# build any prg files in the current directory
+
+for PRGFILE in *.prg
+do
+	./prg2obj.py ${PRGFILE} ${PRGFILE%.prg}.obj
+done

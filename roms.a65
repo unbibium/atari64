@@ -40,14 +40,15 @@
   INCLUDE "basic/code25.a65"
   INCLUDE "basic/code26.a65"
   INCLUDE "basic/trig.a65"
+  INCLUDE "basic/preload_atari.a65"
   INCLUDE "basic/init.a65"
 
   seg.u variables
   INCLUDE "kernal/disclaimer"
   INCLUDE "kernal/declare.a65"
   seg code
-  INCLUDE "kernal/patch.a65"
-	ORG $E500         ;START OF VIC-40 KERNAL
+  ;INCLUDE "kernal/patch.a65" ; integrated later
+;	ORG $E500         ;START OF VIC-40 KERNAL
   INCLUDE "kernal/editor.1.a65"
   INCLUDE "kernal/editor.2.a65"
   INCLUDE "kernal/editor.3.a65"
