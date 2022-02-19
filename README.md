@@ -9,6 +9,9 @@ this 30 years ago?
 HOW TO BUILD
 ============
 
+Working XEX file and ROM image can be downloaded at the release page:
+https://github.com/unbibium/atari64/releases
+
 You will need bash, dasm, and Python 3.
 
 You can get dasm at https://github.com/dasm-assembler/dasm/
