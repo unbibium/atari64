@@ -7,8 +7,9 @@
 ; COPYCHUNK SRC,DST,ENDDST
 	MAC COPYCHUNK
 	; copy RAM to ROM
-	LDY #$00
+	LDY #<{1}
 	STY SRCVEC
+	LDY #<{2}
 	STY DSTVEC
 	LDA #>{1}
 	STA SRCVEC+1
@@ -32,17 +33,15 @@ NMIEN	= $D40E ; NMI control
 SRCVEC  = $80
 DSTVEC  = $82
 
-	org $4000
+	org $3500
 BASICSRC
 	incbin "rom.a000"
-	org $6000
 KERNALSRC
 	incbin "rom.d800"
 
 BASICDST equ $A000
 KERNALDST equ $D800
 
-	ORG $3E00  ; random place in middle of RAM
 INIT
 	; disable all NMIs
 	LDA #0

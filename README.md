@@ -147,9 +147,13 @@ RUN it right away.  If you see the word LOADING, it has detected and
 loaded this program.
 
 I made this in kind of a hurry so that I could show this off in public,
-so it's limited, might not work on larger programs, and the python
-script has to run in the same directory as roms.sym.  Improvements
-will appear in future versions.
+so it's limited, will not work on programs more than 8700 bytes, 
+and the python script has to run in the same directory as roms.sym.  
+Improvements will appear in future versions.
+
+Sample programs include:
+* dungeon.prg: PET dungeon ported to C64 with minor changes to make the joystick work on Atari
+* pm1.prg: using CBM BASIC to do Atari player/missile graphics
 
 ACKNOWLEDGEMENTS
 ================

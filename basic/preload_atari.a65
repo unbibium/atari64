@@ -19,7 +19,7 @@
 ; data might be mistaken for a program.
 ;
 
-PRG_SOURCE = $8900
+PRG_SOURCE = $7E00
 PRG_PREAMBLE = PRG_SOURCE-3
 ; in a hurry
 PRG_SRC_VEC = 251
